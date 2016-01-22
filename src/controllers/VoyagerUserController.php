@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\User as User;
+use TCG\Voyager\Models\User as User;
 
 class VoyagerUserController extends Controller
 {
@@ -39,6 +39,11 @@ class VoyagerUserController extends Controller
     public function store(Request $request)
     {
         //
+        $user = User::create($request->all());
+        if(isset($user->exists) && $user->exists):
+            return redirect('/admin/users')->with(array('message' => 'Successfully Created New User', 'alert-class' => 'callout-info'));
+        endif;
+        ;
     }
 
     /**

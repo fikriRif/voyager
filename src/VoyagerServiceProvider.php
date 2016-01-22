@@ -40,6 +40,7 @@ class VoyagerServiceProvider extends ServiceProvider
     {
         include __DIR__.'/routes.php';
 
+        $this->app->make('TCG\Voyager\Models\User');
         $this->app->make('TCG\Voyager\Models\Role');
 
         $this->app->make('TCG\Voyager\VoyagerController');

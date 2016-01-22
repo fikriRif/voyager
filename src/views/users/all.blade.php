@@ -6,10 +6,16 @@
 @stop
 
 @section('page_header')
+
+	@if(Session::has('message'))
+      <div class="callout {{ Session::get('alert-class', 'callout-info') }}">{{ Session::get('message') }}</div>
+    @endif
+
 	<i class="fa fa-user"></i> Users <a href="/admin/users/create" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New</a>
 @stop
 
 @section('content')
+
 	<div class="row">
 		<table id="example2" class="table table-bordered table-hover">
 	        <thead>
