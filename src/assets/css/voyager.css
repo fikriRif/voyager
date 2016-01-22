@@ -1,0 +1,324 @@
+/*
+ * Skin: Voyager
+ * ----------
+ */
+.skin-voyager .main-header .navbar {
+  background-color: #fff;
+  border-bottom:1px solid #f1f1f1;
+}
+.skin-voyager .main-header .navbar .nav > li > a {
+  color: #212936;
+}
+.skin-voyager .main-header .navbar .nav > li > a:hover,
+.skin-voyager .main-header .navbar .nav > li > a:active,
+.skin-voyager .main-header .navbar .nav > li > a:focus,
+.skin-voyager .main-header .navbar .nav .open > a,
+.skin-voyager .main-header .navbar .nav .open > a:hover,
+.skin-voyager .main-header .navbar .nav .open > a:focus,
+.skin-voyager .main-header .navbar .nav > .active > a {
+  background: rgba(0, 0, 0, 0.05);
+  color: #212936;
+}
+.skin-voyager .main-header .navbar .sidebar-toggle {
+  color: #212936;
+}
+@media (max-width: 767px) {
+  .skin-voyager .main-header .navbar .dropdown-menu li.divider {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .skin-voyager .main-header .navbar .dropdown-menu li a {
+    color: #fff;
+  }
+  .skin-voyager .main-header .navbar .dropdown-menu li a:hover {
+    background: #367fa9;
+  }
+}
+.skin-voyager .main-header .logo {
+  background-color: #212936;
+  color: #ffffff;
+  border-bottom: 0 solid transparent;
+}
+.skin-voyager .main-header .logo:hover {
+  background-color: #212936;
+}
+.skin-voyager .main-header li.user-header {
+  background-color: #212936;
+}
+.skin-voyager .content-header {
+  background: transparent;
+}
+.skin-voyager .wrapper,
+.skin-voyager .main-sidebar,
+.skin-voyager .left-side {
+  background-color: #1B1E24;
+}
+.skin-voyager .user-panel > .info,
+.skin-voyager .user-panel > .info > a {
+  color: #fff;
+}
+.skin-voyager .sidebar-menu > li.header {
+  color: #4b646f;
+  background: #1a2226;
+}
+.skin-voyager .sidebar-menu > li > a {
+  border-left: 3px solid transparent;
+}
+.skin-voyager .sidebar-menu > li:hover > a,
+.skin-voyager .sidebar-menu > li.active > a {
+  color: #ffffff;
+  background: #1e282c;
+  border-left-color: #3c8dbc;
+}
+.skin-voyager .sidebar-menu > li > .treeview-menu {
+  margin: 0 1px;
+  background: #2c3b41;
+}
+.skin-voyager .sidebar a {
+  color: #b8c7ce;
+}
+.skin-voyager .sidebar a:hover {
+  text-decoration: none;
+}
+.skin-voyager .treeview-menu > li > a {
+  color: #8aa4af;
+}
+.skin-voyager .treeview-menu > li.active > a,
+.skin-voyager .treeview-menu > li > a:hover {
+  color: #ffffff;
+}
+.skin-voyager .sidebar-form {
+  border-radius: 3px;
+  border: 1px solid #374850;
+  margin: 10px 10px;
+}
+.skin-voyager .sidebar-form input[type="text"],
+.skin-voyager .sidebar-form .btn {
+  box-shadow: none;
+  background-color: #374850;
+  border: 1px solid transparent;
+  height: 35px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.skin-voyager .sidebar-form input[type="text"] {
+  color: #666;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+}
+.skin-voyager .sidebar-form input[type="text"]:focus,
+.skin-voyager .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: #fff;
+  color: #666;
+}
+.skin-voyager .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  border-left-color: #fff;
+}
+.skin-voyager .sidebar-form .btn {
+  color: #999;
+  border-top-left-radius: 0;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 0;
+}
+.skin-voyager.layout-top-nav .main-header > .logo {
+  background-color: #22262E;
+  color: #ffffff;
+  border-bottom: 0 solid transparent;
+}
+.skin-voyager.layout-top-nav .main-header > .logo:hover {
+  background-color: #3b8ab8;
+}
+
+/*
+* End Skin: Voyager
+* ----------
+*/
+
+.login-page, .register-page {
+    background: #fff;
+}
+
+.login-box, .register-box{
+  margin:5% auto;
+}
+
+.login-box img{
+  width:50px; 
+  height:50px;
+  margin:0px auto;
+  display:block;
+  -webkit-animation: spinnerRotate 900ms ease-out both;
+  animation: spinnerRotate 900ms ease-out both;
+}
+
+.main-header .logo .logo-mini img{
+  width:25px; 
+  height:25px;
+}
+
+.main-header .logo .logo-lg img{
+  width:25px; 
+  height:25px; 
+  margin-right:5px; 
+  position:relative; 
+  top:-1px;
+}
+
+.main-footer{
+  background:#F1F5FA;
+  border-top:1px solid #f9f9f9;
+  font-size:11px;
+}
+
+.login-box-body .form-control-feedback, .register-box-body .form-control-feedback{
+  color:#ddd;
+}
+
+.form-control{
+  border-radius:3px;
+}
+
+.content-header a.btn{
+  margin-left:10px;
+}
+
+.content-header i{
+  margin-right:3px;
+}
+
+.content-header>.breadcrumb{
+  position:relative;
+  top:0px;
+  left:0px;
+  float:none;
+  border:1px solid #f1f1f1;
+  margin-top:15px;
+  padding-left:10px;
+}
+
+.content-wrapper{
+  background:#fff;
+}
+
+table.dataTable{
+  margin-top:0px !important;
+}
+
+div.dataTables_filter {
+    position: absolute;
+    right: 15px;
+    top: -95px;
+}
+
+/********** ADMIN WIDGETS **********/
+
+.widget{
+  color:#fff;
+  min-height:110px;
+  border-radius:2px;
+  display:block;
+  position:relative;
+  background-size:cover;
+  background-position:center center;
+  background:#0098cb;
+}
+
+.widget:after{
+ 
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+99&0+51,0.04+52 */
+  background: rgba(0, 0, 0, 0.3)
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0px;
+  left:0px;
+  display:block;
+  z-index:1;
+  content: '';
+}
+
+.widget h1{
+  font-weight:bold;
+  position:relative;
+  z-index:2;
+}
+
+.widget span{
+  position:relative;
+  z-index:2;
+}
+
+.widget .label{
+  background:rgba(0, 0, 0, 0.2);
+  margin-left:10px;
+  margin-top:5px;
+  z-index:3;
+  position:relative;
+}
+
+.widget i{
+  position:absolute;
+  padding:10px;
+  background:#fff;
+  color:#0098cb;
+  right:10px;
+  z-index:2;
+}
+
+/********** END ADMIN WIDGETS **********/
+
+.spinnerRotate {
+  -webkit-animation: spinnerRotate 900ms ease-out both;
+  animation: spinnerRotate 900ms ease-out both;
+}
+
+@keyframes spinnerRotate
+{
+    0% {
+      transform: scale(0.7) rotate(0deg);
+      opacity: 0.0;   
+    }
+    100% {
+      transform: scale(1) rotate(270deg);
+      opacity: 1; 
+    }
+}
+
+@-webkit-keyframes spinnerRotate
+{
+    0% {
+      -webkit-transform: scale(0.7) rotate(0deg);
+      opacity: 0.0;   
+    }
+    100% {
+      -webkit-transform: scale(1) rotate(270deg);
+      opacity: 1; 
+    }
+}
+@-moz-keyframes spinnerRotate
+{
+    0% {
+      -moz-transform: scale(0.7) rotate(0deg);
+      opacity: 0.0;   
+    }
+    100% {
+      -moz-transform: scale(1) rotate(270deg);
+      opacity: 1; 
+    }
+}
+@-ms-keyframes spinnerRotate
+{
+    0% {
+      -ms-transform: scale(0.7) rotate(0deg);
+      opacity: 0.0;   
+    }
+    100% {
+      -ms-transform: scale(1) rotate(270deg);
+      opacity: 1; 
+    }
+}
+
+
