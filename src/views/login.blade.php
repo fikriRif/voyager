@@ -35,8 +35,11 @@
         <div class="login-logo">
           <a href="#_"><b>V</b>OYAGER</a>
         </div><!-- /.login-logo -->
-        <div class="login-box-body">
+        <div class="login-box-body @if(Session::has('error')){{ 'animated wobble'}}@endif">
           <p class="login-box-msg">Sign in to start your session</p>
+          @if(Session::has('error'))
+            <div class="alert alert-danger alert-dismissable"><i class="fa fa-exclamation-triangle"></i> {{ Session::get('error') }}</div>
+          @endif
           <form action="{{ url('/admin/login') }}" method="post">
             <div class="form-group has-feedback">
               <input type="email" class="form-control" name="email" placeholder="Email">

@@ -23,11 +23,19 @@ class VoyagerController extends Controller
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             // Authentication passed...
             return redirect()->intended('admin');
+        } else {
+        	return redirect()->back()->with('error', 'Credentials do not match our records.');
         }
     }
 
 	public function index()
 	{
 		return view('voyager::index');
+	}
+
+	public function logout()
+	{
+		Auth::logout();
+		return redirect('/admin/login');
 	}
 }

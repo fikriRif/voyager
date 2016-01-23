@@ -46,5 +46,6 @@ class VoyagerServiceProvider extends ServiceProvider
         $this->app->make('TCG\Voyager\VoyagerController');
         $this->app->make('TCG\Voyager\Controllers\VoyagerUserController');
         $this->app->make('TCG\Voyager\Controllers\VoyagerRoleController');
+        $this->app->make('TCG\Voyager\Controllers\VoyagerDevToolsController');
     }
 }

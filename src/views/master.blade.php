@@ -48,28 +48,6 @@
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
-          <ol class="breadcrumb">
-            @if(count(Request::segments()) == 1)
-              <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
-            @else
-              <li  class="active"><i class="fa fa-dashboard"></i>
-                <a href="{{ url('admin')}}">Dashboard</a>
-              </li>
-            @endif
-            <?php $breadcrumb_url = ''; ?>
-            @for($i = 1; $i <= count(Request::segments()); $i++)
-              <?php $breadcrumb_url .= '/' . Request::segment($i); ?>
-              @if(Request::segment($i) != 'admin')
-
-                  @if($i < count(Request::segments()) & $i > 0)
-                    <li class="active"><a href="{{ $breadcrumb_url }}">{{ ucfirst(Request::segment($i)) }}</a></li>
-                  @else
-                    <li>{{ ucfirst(Request::segment($i)) }}</li>
-                  @endif
-
-              @endif
-            @endfor
-          </ol>
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
@@ -199,7 +177,7 @@
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="/admin/logout" class="btn btn-default btn-flat">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -211,6 +189,7 @@
             </ul>
           </div>
         </nav>
+
       </header>
       <!-- Left side column. contains the logo and sidebar -->
       <aside class="main-sidebar">
@@ -245,7 +224,8 @@
           <ul class="sidebar-menu">
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
-            <li @if(Request::is('admin'))class="active"@endif><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+            <!--li @if(Request::is('admin'))class="active"@endif><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li-->
+            <li><a href="#"><i class="fa fa-anchor"></i> <span>Voyager Builder</span></a></li>
             <li class="treeview @if(Request::is('admin/users') || Request::is('admin/users/*')){{ 'active ' }}@endif">
               <a href="{{ url('/admin/users') }}"><i class="fa fa-user"></i> <span>Users</span></a>
             </li>
@@ -256,8 +236,15 @@
                 <li><a href="{{ url('/admin/permissions') }}"><i class="fa fa-circle-o"></i> Permissions</a></li>
               </ul>
             </li>
-            <li><a href="#"><i class="fa fa-database"></i> <span>Database</span></a></li>
+            <li class="treeview @if(Request::is('admin/dev') || Request::is('admin/dev/*')){{ 'active ' }}@endif">
+              <a href="#"><i class="fa fa-code"></i> <span>Dev Tools</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('/admin/database') }}"><i class="fa fa-circle-o"></i> Database</a></li>
+              </ul>
+            </li>
+            
             <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+
           </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
@@ -265,6 +252,30 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
+
+        <ol class="breadcrumb">
+            @if(count(Request::segments()) == 1)
+              <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+            @else
+              <li  class="active">
+                <a href="{{ url('admin')}}"><i class="fa fa-dashboard"></i> Dashboard</a>
+              </li>
+            @endif
+            <?php $breadcrumb_url = ''; ?>
+            @for($i = 1; $i <= count(Request::segments()); $i++)
+              <?php $breadcrumb_url .= '/' . Request::segment($i); ?>
+              @if(Request::segment($i) != 'admin' && !is_numeric(Request::segment($i)))
+
+                  @if($i < count(Request::segments()) & $i > 0)
+                    <li class="active"><a href="{{ $breadcrumb_url }}">{{ ucfirst(Request::segment($i)) }}</a></li>
+                  @else
+                    <li>{{ ucfirst(Request::segment($i)) }}</li>
+                  @endif
+
+              @endif
+            @endfor
+          </ol>
+
         <!-- Content Header (Page header) -->
         <section class="content-header">
           
@@ -371,15 +382,6 @@
     <script src="{{ VOYAGER_ASSETS_PATH }}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="{{ VOYAGER_ASSETS_PATH }}/plugins/fastclick/fastclick.min.js"></script>
-
-    <script>
-    $(document).ready(function(){
-      $('.breadcrumb').css('margin-left', -$('.breadcrumb').outerWidth()/2 - $('.main-sidebar').width() );
-    });
-    $(window).resize(function(){
-      $('.breadcrumb').css('margin-left', -$('.breadcrumb').outerWidth()/2 - $('.main-sidebar').width() );
-    });
-    </script>
 
     @yield('javascript')
   </body>

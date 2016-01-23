@@ -17,7 +17,7 @@ class VoyagerUserController extends Controller
      */
     public function index()
     {
-        return view('voyager::users.all', array('users' => User::all()));
+        return view('voyager::users.index', array('users' => User::all()));
     }
 
     /**
@@ -27,7 +27,7 @@ class VoyagerUserController extends Controller
      */
     public function create()
     {
-        return view('voyager::users.new');
+        return view('voyager::users.create-edit');
     }
 
     /**
@@ -41,9 +41,8 @@ class VoyagerUserController extends Controller
         //
         $user = User::create($request->all());
         if(isset($user->exists) && $user->exists):
-            return redirect('/admin/users')->with(array('message' => 'Successfully Created New User', 'alert-class' => 'callout-info'));
+            return redirect('/admin/users')->with(array('message' => 'Successfully Created New User', 'alert-class' => 'success'));
         endif;
-        ;
     }
 
     /**
@@ -54,7 +53,7 @@ class VoyagerUserController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('voyager::users.show', array('user' => User::find($id)));
     }
 
     /**
@@ -65,7 +64,7 @@ class VoyagerUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('voyager::users.create-edit', array('user' => User::find($id)));
     }
 
     /**
@@ -77,7 +76,8 @@ class VoyagerUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->update($request->all());
     }
 
     /**
@@ -88,7 +88,12 @@ class VoyagerUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(User::destroy($id)){
+            return redirect('/admin/users')->with(array('message' => 'Successfully Deleted User', 'alert-class' => 'success', 'alert-icon' => 'trash-o'));
+        }
+
+        return redirect('/admin/users')->with(array('message' => 'Sorry it appears there was a problem deleting this user', 'alert-class' => 'danger', 'alert-icon' => 'exclamation-triangle'));
+
     }
 }
 
