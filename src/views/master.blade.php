@@ -225,7 +225,7 @@
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
             <!--li @if(Request::is('admin'))class="active"@endif><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li-->
-            <li><a href="#"><i class="fa fa-anchor"></i> <span>Voyager Builder</span></a></li>
+            <li><a href="{{ url('/admin/builder') }}"><i class="fa fa-anchor"></i> <span>Voyager Builder</span></a></li>
             <li class="treeview @if(Request::is('admin/users') || Request::is('admin/users/*')){{ 'active ' }}@endif">
               <a href="{{ url('/admin/users') }}"><i class="fa fa-user"></i> <span>Users</span></a>
             </li>
