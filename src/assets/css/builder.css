@@ -1,0 +1,43 @@
+.db_row{
+	border: 1px solid #eaeaea;
+	background:#f9f9f9;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-bottom:5px;
+    clear:both;
+}
+
+.db_row.crud_active{
+	background:#3c8dfc;
+	border:1px solid #3c8dfc;
+	color:#fff;
+}
+
+
+.db_row h4{
+	float:left;
+	position:relative;
+	top:-1px;
+}
+
+.db_row h4 i{
+	position:relative;
+	top:1px;
+}
+
+.db_row .btn{
+	position:relative;
+	top:4px;
+}
+
+.db_row .btn.edit{
+	margin-right:10px;
+}
+
+.db_row .actions{
+	float:right;
+}
+
+.db_row .clear{
+	clear:both;
+}

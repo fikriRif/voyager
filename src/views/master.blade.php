@@ -224,17 +224,10 @@
           <ul class="sidebar-menu">
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
-            <!--li @if(Request::is('admin'))class="active"@endif><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li-->
+            <li @if(Request::is('admin'))class="active"@endif><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             <li><a href="{{ url('/admin/builder') }}"><i class="fa fa-anchor"></i> <span>Voyager Builder</span></a></li>
             <li class="treeview @if(Request::is('admin/users') || Request::is('admin/users/*')){{ 'active ' }}@endif">
               <a href="{{ url('/admin/users') }}"><i class="fa fa-user"></i> <span>Users</span></a>
-            </li>
-            <li class="treeview @if(Request::is('admin/roles') || Request::is('admin/roles/*')){{ 'active ' }}@endif">
-              <a href="#"><i class="fa fa-users"></i> <span>Roles</span> <i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="{{ url('/admin/roles') }}"><i class="fa fa-circle-o"></i> Roles</a></li>
-                <li><a href="{{ url('/admin/permissions') }}"><i class="fa fa-circle-o"></i> Permissions</a></li>
-              </ul>
             </li>
             <li class="treeview @if(Request::is('admin/dev') || Request::is('admin/dev/*')){{ 'active ' }}@endif">
               <a href="#"><i class="fa fa-code"></i> <span>Dev Tools</span> <i class="fa fa-angle-left pull-right"></i></a>

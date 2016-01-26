@@ -14,6 +14,7 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     public function boot(\Illuminate\Routing\Router $router, \Illuminate\Contracts\Http\Kernel $kernel)
     {
+
         $router->middleware('admin.user', 'TCG\Voyager\middleware\VoyagerAdminMiddleware');
 
         $this->loadViewsFrom(__DIR__.'/views', 'voyager');
@@ -42,10 +43,13 @@ class VoyagerServiceProvider extends ServiceProvider
 
         $this->app->make('TCG\Voyager\Models\User');
         $this->app->make('TCG\Voyager\Models\Role');
+        $this->app->make('TCG\Voyager\Models\DataType');
+        $this->app->make('TCG\Voyager\Models\DataRow');
 
         $this->app->make('TCG\Voyager\VoyagerController');
+        $this->app->make('TCG\Voyager\Controllers\VoyagerBuilderController');
         $this->app->make('TCG\Voyager\Controllers\VoyagerUserController');
-        $this->app->make('TCG\Voyager\Controllers\VoyagerRoleController');
         $this->app->make('TCG\Voyager\Controllers\VoyagerDevToolsController');
     }
+
 }

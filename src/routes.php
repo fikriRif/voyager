@@ -4,6 +4,9 @@ Route::get('/admin/login', 'tcg\voyager\VoyagerController@login')->middleware('w
 Route::post('admin/login', 'tcg\voyager\VoyagerController@postLogin')->middleware('web');
 
 Route::group(['middleware' => ['web', 'admin.user']], function () {
+	Route::resource('/admin/builder', 'tcg\voyager\controllers\VoyagerBuilderController');
+	Route::post('/admin/builder/create', 'tcg\voyager\controllers\VoyagerBuilderController@create');
+
 	Route::get('/admin', 'tcg\voyager\VoyagerController@index');
 	Route::get('/admin/logout', 'tcg\voyager\VoyagerController@logout');
 	Route::get('/admin/database', 'tcg\voyager\controllers\VoyagerDevToolsController@database');
