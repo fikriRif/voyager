@@ -28,9 +28,14 @@ class CreateDataTypesTable extends Migration
         Schema::create('data_rows', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('data_type_id')->unsigned();
-            $table->boolean('show')->default(true);
             $table->string('field');
             $table->string('type');
+            $table->boolean('required')->default(false);
+            $table->boolean('browse')->default(true);
+            $table->boolean('read')->default(true);
+            $table->boolean('edit')->default(true);
+            $table->boolean('add')->default(true);
+            $table->boolean('delete')->default(true);
             $table->text('details')->nullable();
             
             $table->foreign('data_type_id')->references('id')->on('data_types')

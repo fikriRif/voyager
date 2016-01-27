@@ -1,7 +1,7 @@
 @extends('voyager::master')
 
 @section('page_header')
-	<i class="fa fa-database"></i> @if(isset($dataType->id)){{ 'Edit CRUD for ' . $dataType->name . ' table' }}@elseif(isset($table)){{ 'Create CRUD for ' . $table . ' table' }}@endif
+	<i class="fa fa-database"></i> @if(isset($dataType->id)){{ 'Edit BREAD for ' . $dataType->name . ' table' }}@elseif(isset($table)){{ 'Create BREAD for ' . $table . ' table' }}@endif
 @stop
 
 @section('content')
@@ -9,12 +9,13 @@
 @if(isset($dataType->name))
   <?php $table = $dataType->name ?>
 @endif
+  
 
 <?php $tableData = DB::select("DESCRIBE ${table}"); ?>
 
 <div class="row">
 
-  <form role="form" action="@if(isset($dataType->id)){{ url('/admin/builder/' . $$dataType->id) }}@else{{ url('/admin/builder') }}@endif" method="POST">
+  <form role="form" action="@if(isset($dataType->id)){{ url('/admin/builder/' . $dataType->id) }}@else{{ url('/admin/builder') }}@endif" method="POST">
     <table id="users" class="table table-bordered">
       <thead>
         <tr>
@@ -22,7 +23,7 @@
           <th>Type</th>
           <th>Key</th>
           <th>Required</th>
-          <th>Visible</th>
+          <th>Visibility</th>
           <th>Input Type</th>
           <th>Optional Details</th>
         </tr>
@@ -33,25 +34,48 @@
             <td>{{ $data->Field }}</td>
             <td>{{ $data->Type }}</td>
             <td>{{ $data->Key }}</td>
-            <td>@if($data->Null == "NO"){{ 'Yes' }}@else{{ 'No' }}@endif</td>
+            <td>@if($data->Null == "NO")
+                <span>Yes</span>
+                <input type="hidden" value="1" name="field_required_{{ $data->Field }}" checked="checked">
+                @else
+                <span>No</span>
+                <input type="hidden" value="0" name="field_required_{{ $data->Field }}">
+                @endif
+            </td>
             <td>
-              <input type="checkbox" name="field_show_{{ $data->Field }}" checked="checked">
+              <input type="checkbox" name="field_browse_{{ $data->Field }}" checked="checked"> Browse<br />
+              <input type="checkbox" name="field_read_{{ $data->Field }}" checked="checked"> Read<br />
+              <input type="checkbox" name="field_edit_{{ $data->Field }}" checked="checked"> Edit<br />
+              <input type="checkbox" name="field_add_{{ $data->Field }}" checked="checked"> Add<br />
+              <input type="checkbox" name="field_delete_{{ $data->Field }}" checked="checked"> Delete<br />
             </td>
             <input type="hidden" name="field_{{ $data->Field }}" value="{{ $data->Field }}">
             <td>
-              <select name="field_input_type_{{ $data->Field }}">
-                <option value="text">Text</option>
-                <option value="text_area">Text Area</option>
-                <option value="rich_text_box">Rich Textbox</option>
-                <option value="password">Password</option>
-                <option value="hidden">Hidden</option>
-                <option value="checkbox">Check Box</option>
-                <option value="radio_btn">Radio Button</option>
-                <option value="radio_group">Radio Button Group</option>
-                <option value="select_dropdown">Select Dropdown</option>
-                <option value="file">File</option>
-                <option value="image">Image</option>
-              </select>
+              @if(isset($dataType->id))
+                <?php $dataRow = TCG\Voyager\Models\DataRow::where('data_type_id', '=', $dataType->id)->where('field', '=', $data->Field)->first(); ?>
+              @endif
+
+              @if($data->Key == 'PRI')
+                <p>Primary Key</p>
+                <input type="hidden" value="PRI" name="field_input_type_{{ $data->Field }}">
+              @elseif($data->Type == 'timestamp')
+                <p>Timestamp</p>
+                <input type="hidden" value="timestamp" name="field_input_type_{{ $data->Field }}">
+              @else
+                <select name="field_input_type_{{ $data->Field }}">
+                  <option value="text" @if(isset($dataRow->type) && $dataRow->type == 'text'){{ 'selected' }}@endif>Text</option>
+                  <option value="text_area" @if(isset($dataRow->type) && $dataRow->type == 'text_area'){{ 'selected' }}@endif>Text Area</option>
+                  <option value="rich_text_box" @if(isset($dataRow->type) && $dataRow->type == 'rich_text_box'){{ 'selected' }}@endif>Rich Textbox</option>
+                  <option value="password" @if(isset($dataRow->type) && $dataRow->type == 'password'){{ 'selected' }}@endif>Password</option>
+                  <option value="hidden" @if(isset($dataRow->type) && $dataRow->type == 'hidden'){{ 'selected' }}@endif>Hidden</option>
+                  <option value="checkbox" @if(isset($dataRow->type) && $dataRow->type == 'checkbox'){{ 'selected' }}@endif>Check Box</option>
+                  <option value="radio_btn" @if(isset($dataRow->type) && $dataRow->type == 'radio_btn'){{ 'selected' }}@endif>Radio Button</option>
+                  <option value="radio_group" @if(isset($dataRow->type) && $dataRow->type == 'radio_group'){{ 'selected' }}@endif>Radio Button Group</option>
+                  <option value="select_dropdown" @if(isset($dataRow->type) && $dataRow->type == 'select_dropdown'){{ 'selected' }}@endif>Select Dropdown</option>
+                  <option value="file" @if(isset($dataRow->type) && $dataRow->type == 'text'){{ 'file' }}@endif>File</option>
+                  <option value="image" @if(isset($dataRow->type) && $dataRow->type == 'text'){{ 'image' }}@endif>Image</option>
+                </select>
+              @endif
 
             </td>
             <td><textarea class="form-control" name="field_details_{{ $data->Field }}"></textarea></td>
@@ -63,7 +87,7 @@
 
     <div class="box box-primary">
       <div class="box-header with-border">
-        {{ ucfirst($table) }} CRUD info
+        {{ ucfirst($table) }} BREAD info
       </div>
       <!-- /.box-header -->
       <!-- form start -->
@@ -97,6 +121,7 @@
         <!-- /.box-body -->
         @if(isset($dataType->id))
           <input type="hidden" value="{{ $dataType->id }}" name="id">
+          <input type="hidden" value="PUT" name="_method">
         @endif
         <!-- CSRF TOKEN -->
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

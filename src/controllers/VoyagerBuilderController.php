@@ -21,7 +21,7 @@ class VoyagerBuilderController extends Controller
      */
     public function index()
     {
-        return view('voyager::builder.index');
+        return view('voyager::devtools.builder.browse');
     }
 
     /**
@@ -31,7 +31,7 @@ class VoyagerBuilderController extends Controller
      */
     public function create(Request $request)
     {
-        return view('voyager::builder.create-edit', array('table' => $request->input('table')));
+        return view('voyager::devtools.builder.edit-add', array('table' => $request->input('table')));
     }
 
     /**
@@ -44,31 +44,8 @@ class VoyagerBuilderController extends Controller
     {
         //
         $requestData = $request->all();
-
         $dataType = new DataType;
-        $dataType->name = $request['name'];
-        $dataType->slug = $request['slug'];
-        $dataType->display_name = $request['display_name'];
-        $dataType->icon = $request['icon'];
-        $dataType->model_name = $request['model_name'];
-        $dataType->description = $request['description'];
-        $dataType->save();
-
-        $columns = Schema::getColumnListing($dataType->name);
-
-        foreach($columns as $column){
-            if($column != "id" && $column != "created_at" && $column != "updated_at"):
-                $dataRow = new DataRow;
-                $dataRow->data_type_id = $dataType->id;
-                if($requestData['field_show_' . $column] != "on"){
-                    $dataRow->show = 0;
-                }
-                $dataRow->field = $requestData['field_' . $column];
-                $dataRow->type = $requestData['field_input_type_' . $column];
-                $dataRow->details = $requestData['field_details_' . $column];
-                $dataRow->save();
-            endif;
-        }
+        $this->updateDataType($dataType, $requestData);
 
         echo 'success';
 
@@ -98,7 +75,7 @@ class VoyagerBuilderController extends Controller
      */
     public function edit($id)
     {
-        return view('voyager::users.create-edit', array('user' => User::find($id)));
+        return view('voyager::devtools.builder.edit-add', array('dataType' => DataType::find($id) ));
     }
 
     /**
@@ -110,8 +87,48 @@ class VoyagerBuilderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->update($request->all());
+        $requestData = $request->all();
+        $dataType = DataType::find($id);
+        $this->updateDataType($dataType, $requestData);
+
+    }
+
+    public function updateDataType($dataType, $requestData){
+
+        $dataType->name = $requestData['name'];
+        $dataType->slug = $requestData['slug'];
+        $dataType->display_name = $requestData['display_name'];
+        $dataType->icon = $requestData['icon'];
+        $dataType->model_name = $requestData['model_name'];
+        $dataType->description = $requestData['description'];
+        $dataType->save();
+
+        $columns = Schema::getColumnListing($dataType->name);
+
+        foreach($columns as $column){
+            $dataRow = DataRow::where('data_type_id', '=', $dataType->id)->where('field', '=', $column)->first();
+            if(!isset($dataRow->id)){
+                $dataRow = new DataRow;
+            }
+            $dataRow->data_type_id = $dataType->id;
+
+            $dataRow->required = $requestData['field_required_' . $column];
+
+            $bread_checks = array('browse', 'read', 'edit', 'add', 'delete');
+
+            foreach($bread_checks as $check){
+                if($requestData['field_' . $check . '_' . $column] != "on"){
+                    $dataRow->{$check} = 0;
+                } else {
+                    $dataRow->{$check} = 1;
+                }
+            }
+            $dataRow->field = $requestData['field_' . $column];
+            $dataRow->type = $requestData['field_input_type_' . $column];
+            $dataRow->details = $requestData['field_details_' . $column];
+            $dataRow->save();
+        }
+
     }
 
     /**
