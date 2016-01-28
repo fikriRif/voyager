@@ -27,19 +27,46 @@ class VoyagerBreadController extends Controller
         return view('voyager::bread.edit-add', array('dataType' => $dataType));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Save item from Add BRE(A)D POST
     public function store(Request $request)
     {
         //
-        $user = User::create($request->all());
-        if(isset($user->exists) && $user->exists):
-            return redirect('/admin/users')->with(array('message' => 'Successfully Created New User', 'alert-class' => 'success'));
-        endif;
+        $slug = $request->segment(2);
+        $dataType = DataType::where('slug', '=', $slug)->first();
+
+        eval('$data = new ' . $dataType->model_name . ';');
+
+        foreach($dataType->addRows as $row){
+            
+            /********** PASSWORD TYPE **********/
+            if($row->type == 'password'){
+                $content = \Hash::make($request->input($row->field));
+
+            /********** CHECKBOX TYPE **********/
+            else if($row->type == 'checkbox'){
+                $content = 0;
+                if(isset($request->input($row->field))){
+                    $content = 1;
+                }
+
+            /********** FILE TYPE **********/
+            else if($row->type == 'file'){
+
+
+            /********** IMAGE TYPE **********/
+            else if($row->type == 'file'){
+
+            /********** ALL OTHER TEXT TYPE **********/
+            }else{
+                $content = $request->input($row->field);
+            }
+
+            $data->{$row->field} = $content;
+        }
+       
+        $data->save();
+
+        return redirect('/admin')->with(array('message' => 'Successfully Created New User', 'alert-class' => 'success'));
     }
 
     /**

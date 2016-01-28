@@ -116,7 +116,7 @@
             </div>
             <div class="form-group">
               <label for="email">Model Name (ex. \App\User, if left empty will try and use the table name)</label>
-              <input type="text" class="form-control" name="model_name" placeholder="Model Class Name" value="@if(isset($dataType->slug)){{ $dataType->slug }}@endif">
+              <input type="text" class="form-control" name="model_name" placeholder="Model Class Name" value="@if(isset($dataType->model_name)){{ $dataType->model_name }}@endif">
             </div>
             <div class="form-group">
               <label for="email">Description</label>

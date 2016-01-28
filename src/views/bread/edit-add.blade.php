@@ -12,7 +12,7 @@
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    <form role="form" action="@if(isset($user->id)){{ url('/admin/users/' . $user->id) }}@else{{ url('/admin/users') }}@endif" method="POST">
+    <form role="form" action="/admin/{{ $dataType->slug }}" method="POST">
       <div class="box-body">
         
         @foreach($dataType->addRows as $row)
@@ -29,7 +29,7 @@
               <input type="file" name="{{ $row->field }}">
             @elseif($row->type == "select_dropdown")
               <?php $options = json_decode($row->details); ?>
-              <select class="form-control">
+              <select class="form-control" name="{{ $row->field }}">
                 @foreach($options->dropdown as $key => $option)
                   <option value="{{ $key }}">{{ $option }}</option>
                 @endforeach
@@ -40,7 +40,6 @@
           </div>
         @endforeach
         
-
       </div>
       
       <!-- CSRF TOKEN -->
