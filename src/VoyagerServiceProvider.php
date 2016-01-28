@@ -30,6 +30,11 @@ class VoyagerServiceProvider extends ServiceProvider
             __DIR__.'/database/migrations/' => database_path('migrations')
         ], 'migrations');
 
+        // Publish the seeds to the seeds folder
+        $this->publishes([
+            __DIR__.'/database/seeds/' => database_path('seeds')
+        ], 'seeds');
+
 
         include __DIR__.'/routes.php';
     }
