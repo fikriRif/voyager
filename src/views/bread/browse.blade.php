@@ -11,7 +11,7 @@
       <div class="alert callout alert-{{ Session::get('alert-class', 'info') }}"><i class="fa fa-{{ Session::get('alert-icon', 'info-circle') }}"></i> {{ Session::get('message') }} <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>
     @endif
 
-	<i class="fa fa-user"></i> {{ $dataType->display_name }} <a href="/admin/{{ $dataType->slug }}/create" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New</a>
+	<i class="fa fa-user"></i> {{ $dataType->display_name_plural }} <a href="/admin/{{ $dataType->slug }}/create" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add New</a>
 @stop
 
 @section('content')
@@ -20,7 +20,7 @@
 		<table id="users" class="table table-bordered">
 	        <thead>
 	          <tr>
-	          	@foreach($dataType->rows as $rows)
+	          	@foreach($dataType->browseRows as $rows)
 	          		<th>{{ $rows->field }}</th>
 	          	@endforeach
 	          	<th class="actions">Actions</th>

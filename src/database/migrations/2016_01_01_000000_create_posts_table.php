@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
             $table->string('slug')->unique();
             $table->text('meta_description');
             $table->text('meta_keywords');
-            $table->enum('status', array('PUBLISHED', 'DRAFT', 'PENDING', 'TRASH'))->default('DRAFT');
+            $table->enum('status', array('PUBLISHED', 'DRAFT', 'PENDING'))->default('DRAFT');
             $table->timestamps();
 
             //$table->foreign('author_id')->references('id')->on('users');

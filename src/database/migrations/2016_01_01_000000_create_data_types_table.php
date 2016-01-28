@@ -17,8 +17,9 @@ class CreateDataTypesTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('display_name')->nullable();
-            $table->string('icon')->nullable();
+            $table->string('display_name_singular');
+            $table->string('display_name_plural');
+            $table->string('icon');
             $table->string('model_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
@@ -30,6 +31,7 @@ class CreateDataTypesTable extends Migration
             $table->integer('data_type_id')->unsigned();
             $table->string('field');
             $table->string('type');
+            $table->string('display_name');
             $table->boolean('required')->default(false);
             $table->boolean('browse')->default(true);
             $table->boolean('read')->default(true);

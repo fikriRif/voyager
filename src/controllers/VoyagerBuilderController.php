@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use TCG\Voyager\Models\User as User;
 use TCG\Voyager\Models\DataType as DataType;
 use TCG\Voyager\Models\DataRow as DataRow;
+use Log;
 
 use Illuminate\Support\Facades\Schema as Schema;
 
@@ -97,7 +98,8 @@ class VoyagerBuilderController extends Controller
 
         $dataType->name = $requestData['name'];
         $dataType->slug = $requestData['slug'];
-        $dataType->display_name = $requestData['display_name'];
+        $dataType->display_name_singular = $requestData['display_name_singular'];
+        $dataType->display_name_plural = $requestData['display_name_plural'];
         $dataType->icon = $requestData['icon'];
         $dataType->model_name = $requestData['model_name'];
         $dataType->description = $requestData['description'];
@@ -115,17 +117,18 @@ class VoyagerBuilderController extends Controller
             $dataRow->required = $requestData['field_required_' . $column];
 
             $bread_checks = array('browse', 'read', 'edit', 'add', 'delete');
-
+            
             foreach($bread_checks as $check){
-                if($requestData['field_' . $check . '_' . $column] != "on"){
-                    $dataRow->{$check} = 0;
-                } else {
+                if(isset($requestData['field_' . $check . '_' . $column])){
                     $dataRow->{$check} = 1;
+                } else {
+                    $dataRow->{$check} = 0;
                 }
             }
             $dataRow->field = $requestData['field_' . $column];
             $dataRow->type = $requestData['field_input_type_' . $column];
             $dataRow->details = $requestData['field_details_' . $column];
+            $dataRow->display_name = $requestData['field_display_name_' . $column];
             $dataRow->save();
         }
 

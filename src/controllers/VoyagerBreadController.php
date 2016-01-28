@@ -11,32 +11,20 @@ use TCG\Voyager\Models\DataType as DataType;
 
 class VoyagerBreadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Browse our Data Type (B)READ
     public function index(Request $request)
     {   
-        $segment_count = 0;
-        foreach($request->segments() as $segments){
-            $segment_count += 1;
-        }
-
-        $slug = $request->segment($segment_count);
+        $slug = $request->segment(2);
         $dataType = DataType::where('slug', '=', $slug)->first();
-
         return view('voyager::bread.browse', array('dataType' => $dataType));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    // Add a new item of our Data Type BRE(A)D
+    public function create(Request $request)
     {
-        return view('voyager::bread.edit-add');
+        $slug = $request->segment(2);
+        $dataType = DataType::where('slug', '=', $slug)->first();
+        return view('voyager::bread.edit-add', array('dataType' => $dataType));
     }
 
     /**

@@ -228,10 +228,14 @@
             <li class="treeview @if(Request::is('admin/users') || Request::is('admin/users/*')){{ 'active ' }}@endif">
               <a href="{{ url('/admin/users') }}"><i class="fa fa-user"></i> <span>Users</span></a>
             </li>
-            <?php $dataTypes = TCG\Voyager\Models\DataType::all(); ?>
-            @foreach($dataTypes as $type)
-              <li><a href="/admin/{{ $type->name }}"><i class="fa fa-{{ $type->icon }}"></i> <span>{{ $type->display_name }}</span></a></li>
-            @endforeach 
+            @if(Schema::hasTable('data_types'))
+              <?php $dataTypes = TCG\Voyager\Models\DataType::all(); ?>
+              @foreach($dataTypes as $type)
+                <li><a href="/admin/{{ $type->name }}"><i class="fa fa-{{ $type->icon }}"></i> <span>{{ $type->display_name_plural }}</span></a></li>
+              @endforeach 
+            @endif
+
+            <li @if(Request::is('admin/menu'))class="active"@endif><a href="{{ url('/admin/menu') }}"><i class="fa fa-map-o"></i> <span>Menu(map) Builder</span></a></li>
             <li class="treeview @if(Request::is('admin/dev') || Request::is('admin/dev/*')){{ 'active ' }}@endif">
               <a href="#"><i class="fa fa-code"></i> <span>Dev Tools</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
