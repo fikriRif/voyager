@@ -43,21 +43,22 @@ class VoyagerBreadController extends Controller
                 $content = \Hash::make($request->input($row->field));
 
             /********** CHECKBOX TYPE **********/
-            else if($row->type == 'checkbox'){
+            } else if($row->type == 'checkbox'){
                 $content = 0;
-                if(isset($request->input($row->field))){
+                $checkBoxRow = $request->input($row->field);
+                if(isset($checkBoxRow)){
                     $content = 1;
                 }
 
             /********** FILE TYPE **********/
-            else if($row->type == 'file'){
+            } else if($row->type == 'file'){
 
 
             /********** IMAGE TYPE **********/
-            else if($row->type == 'file'){
+            } else if($row->type == 'file'){
 
             /********** ALL OTHER TEXT TYPE **********/
-            }else{
+            } else {
                 $content = $request->input($row->field);
             }
 
