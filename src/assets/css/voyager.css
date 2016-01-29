@@ -146,14 +146,14 @@
     background: url('../images/login-bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position-x: -400px;
+    background-position-x: -420px;
 }
 
 #login-container{
   position: absolute;
   right: 0px;
   top: 0px;
-  width:400px;
+  width:420px;
   height:100%;
   background:#fff;
 }
@@ -162,8 +162,8 @@
   position: absolute;
   top:50%;
   margin-top:-250px;
-  margin-left:20px;
-  margin-right:20px;
+  margin-left:30px;
+  margin-right:30px;
 }
 
 .login-box img{

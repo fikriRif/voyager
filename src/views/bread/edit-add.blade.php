@@ -12,7 +12,7 @@
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    <form role="form" action="/admin/{{ $dataType->slug }}" method="POST">
+    <form role="form" action="/admin/{{ $dataType->slug }}" method="POST" enctype="multipart/form-data">
       <div class="box-body">
         
         @foreach($dataType->addRows as $row)

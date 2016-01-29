@@ -7,5 +7,7 @@
             "email": "tony.lea@thecontrolgroup.com"
         }
     ],
-    "require": {}
+    "require": {
+        "intervention/image": "^2.3"
+    }
 }

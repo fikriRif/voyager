@@ -22,6 +22,10 @@ Route::group(['middleware' => ['web', 'admin.user']], function () {
 		endforeach;
 	endif;
 
+	Route::get('mkdir', function(){
+		
+	});
+
 
 	Route::get('/admin/database', 'tcg\voyager\controllers\VoyagerDevToolsController@database');
 	Route::resource('admin/users', 'tcg\voyager\controllers\VoyagerUserController');

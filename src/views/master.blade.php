@@ -235,9 +235,9 @@
               @endforeach 
             @endif
 
-            <li @if(Request::is('admin/menu'))class="active"@endif><a href="{{ url('/admin/menu') }}"><i class="fa fa-map-o"></i> <span>Menu(map) Builder</span></a></li>
+            <li @if(Request::is('admin/menu'))class="active"@endif><a href="{{ url('/admin/menu') }}"><i class="fa fa-sitemap"></i> <span>Menu Builder</span></a></li>
             <li class="treeview @if(Request::is('admin/dev') || Request::is('admin/dev/*')){{ 'active ' }}@endif">
-              <a href="#"><i class="fa fa-code"></i> <span>Dev Tools</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <a href="#"><i class="fa fa-wrench"></i> <span>Tools</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="{{ url('/admin/builder') }}"><i class="fa fa-anchor"></i> <span>BREAD Builder</span></a></li>
                 <li><a href="{{ url('/admin/database') }}"><i class="fa fa-database"></i> Database</a></li>

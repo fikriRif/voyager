@@ -27,15 +27,21 @@
 	          </tr>
 	        </thead>
 	        <tbody>
-	       		<?php /*@foreach($users as $user)
-	          		<tr data-id="{{ $user->id }}">
-	            		<td><a href="{{ url('/admin/users/' . $user->id) }}">{{ $user->name }}</a></td>
-	            		<td>{{ $user->email }}</td>
-	            		<td>{{ $user->created_at }}</td>
-	            		<td class="no-sort no-click"><div class="btn-sm btn-danger pull-right delete" data-id="{{ $user->id }}" data-name="{{ $user->name }}"><i class="fa fa-trash"></i> Delete</div><a href="/admin/users/{{ $user->id }}/edit" class="btn-sm btn-primary pull-right"><i class="fa fa-edit"></i> Edit</a></td>
+	       		@foreach($dataTypeContent as $data)
+	          		<tr>
+	          			@foreach($dataType->browseRows as $row)
+	          				<td>
+
+	          					@if($row->type == 'image')
+	          						<img src="<?= url('/') . '/' . $data->{$row->field};  ?>" style="width:100px">
+	          					@else
+	          						{{ $data->{$row->field} }}
+	          					@endif
+	          				</td>
+	          			@endforeach
+	          			<td></td>
 	          		</tr>
-	          	@endforeach */
-	          	?>
+	          	@endforeach
 	        </tbody>
 	      </table>
     </div>
@@ -81,15 +87,6 @@
 	       ]
         });
 
-      });
-
-      $('td').on('click', '.delete', function(e){
-      	id = $(e.target).data('id');
-      	name = $(e.target).data('name');
-
-      	$('#delete_user_name').text(name);
-      	$('#delete_user_form').attr('action', '/admin/users/' + id);
-      	$('#delete_user_modal').modal('show');
       });
 
       $('#delete_user_id').click(function(){

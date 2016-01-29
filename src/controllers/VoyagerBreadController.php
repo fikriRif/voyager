@@ -16,7 +16,8 @@ class VoyagerBreadController extends Controller
     {   
         $slug = $request->segment(2);
         $dataType = DataType::where('slug', '=', $slug)->first();
-        return view('voyager::bread.browse', array('dataType' => $dataType));
+        eval('$dataTypeContent = ' . $dataType->model_name . '::all();');
+        return view('voyager::bread.browse', array('dataType' => $dataType, 'dataTypeContent' => $dataTypeContent));
     }
 
     // Add a new item of our Data Type BRE(A)D
@@ -37,6 +38,8 @@ class VoyagerBreadController extends Controller
         eval('$data = new ' . $dataType->model_name . ';');
 
         foreach($dataType->addRows as $row){
+
+            $content = NULL;
             
             /********** PASSWORD TYPE **********/
             if($row->type == 'password'){
@@ -55,7 +58,38 @@ class VoyagerBreadController extends Controller
 
 
             /********** IMAGE TYPE **********/
-            } else if($row->type == 'file'){
+            } else if($row->type == 'image'){
+                
+                
+                if ($request->hasFile($row->field)) {
+
+                    \Log::info('Hit the image placement');
+                    $file = $request->file($row->field);
+                    $filename = str_random(20);
+                    $image = \Image::make($file);
+                    
+                    $upload_dir = 'content/uploads';
+
+                    if(!file_exists('content')){
+                        mkdir('content');
+                    }
+
+                    if(!file_exists('content/uploads')){
+                        mkdir('content/uploads');
+                    }
+
+                    if(!file_exists('content/uploads/' . $slug)){
+                        mkdir('content/uploads/' . $slug);
+                    }
+                    
+
+                    $full_path = $upload_dir . '/' . $slug . '/' .$filename . '.' . $file->getClientOriginalExtension();
+
+                    $image->save($full_path);
+
+                    $content = $full_path;
+
+                }
 
             /********** ALL OTHER TEXT TYPE **********/
             } else {
