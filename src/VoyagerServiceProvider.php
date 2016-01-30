@@ -15,7 +15,7 @@ class VoyagerServiceProvider extends ServiceProvider
     public function boot(\Illuminate\Routing\Router $router, \Illuminate\Contracts\Http\Kernel $kernel)
     {
 
-        $router->middleware('admin.user', 'TCG\Voyager\middleware\VoyagerAdminMiddleware');
+        $router->middleware('admin.user', 'TCG\Voyager\Middleware\VoyagerAdminMiddleware');
 
         $this->loadViewsFrom(__DIR__.'/views', 'voyager');
         define('VOYAGER_ASSETS_PATH', '/vendor/tcg/voyager/assets');
