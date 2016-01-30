@@ -40,6 +40,11 @@ class VoyagerServiceProvider extends ServiceProvider
             __DIR__.'/content' => public_path('content')
         ], 'uploads');
 
+        // Publish the App\Post file model
+        $this->publishes([
+            __DIR__.'/models/Post.php' => app_path('Post.php')
+        ], 'post_model');
+
 
         include __DIR__.'/routes.php';
     }
