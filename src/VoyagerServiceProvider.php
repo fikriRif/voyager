@@ -35,6 +35,11 @@ class VoyagerServiceProvider extends ServiceProvider
             __DIR__.'/database/seeds/' => database_path('seeds')
         ], 'seeds');
 
+        // Publish the content/uploads content to the migrations folder
+        $this->publishes([
+            __DIR__.'/content' => public_path('content')
+        ], 'uploads');
+
 
         include __DIR__.'/routes.php';
     }

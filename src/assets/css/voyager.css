@@ -142,6 +142,15 @@
 * ----------
 */
 
+.alert .close{
+  position: relative;
+  right: -31px;
+  top: -16px;
+  padding: 13px;
+  background: #333;
+  border-radius: 2px;
+}
+
 .login-page, .register-page {
     background: url('../images/login-bg.jpg');
     background-repeat: no-repeat;

@@ -46,15 +46,13 @@ class VoyagerBuilderController extends Controller
         //
         $requestData = $request->all();
         $dataType = new DataType;
-        $this->updateDataType($dataType, $requestData);
+        $success = $this->updateDataType($dataType, $requestData);
 
-        echo 'success';
+        if($success):
+            return redirect('/admin/builder')->with(array('message' => 'Successfully created new BREAD', 'alert-class' => 'success', 'alert-icon' => 'thumbs-up'));
+        endif;
 
-        
-        // $user = User::create($request->all());
-        // if(isset($user->exists) && $user->exists):
-        //     return redirect('/admin/users')->with(array('message' => 'Successfully Created New User', 'alert-class' => 'success'));
-        // endif;
+        return redirect('/admin/builder')->with(array('message' => 'Sorry it appears there may have been a problem creating this bread', 'alert-class' => 'danger', 'alert-icon' => 'exclamation-triangle'));
     }
 
     /**
@@ -103,7 +101,7 @@ class VoyagerBuilderController extends Controller
         $dataType->icon = $requestData['icon'];
         $dataType->model_name = $requestData['model_name'];
         $dataType->description = $requestData['description'];
-        $dataType->save();
+        $success = $dataType->save();
 
         $columns = Schema::getColumnListing($dataType->name);
 
@@ -129,8 +127,14 @@ class VoyagerBuilderController extends Controller
             $dataRow->type = $requestData['field_input_type_' . $column];
             $dataRow->details = $requestData['field_details_' . $column];
             $dataRow->display_name = $requestData['field_display_name_' . $column];
-            $dataRow->save();
+            $dataRowSuccess = $dataRow->save();
+            // If success has never failed yet, let's add DataRowSuccess to success
+            if($success){
+                $success = $dataRowSuccess;
+            }
         }
+
+        return $success;
 
     }
 
@@ -142,11 +146,13 @@ class VoyagerBuilderController extends Controller
      */
     public function destroy($id)
     {
-        if(User::destroy($id)){
-            return redirect('/admin/users')->with(array('message' => 'Successfully Deleted User', 'alert-class' => 'success', 'alert-icon' => 'trash-o'));
+        $datatype = DataType::find($id);
+        $table_name = $datatype->name;
+        if(DataType::destroy($id)){
+            return redirect('/admin/builder')->with(array('message' => 'Successfully removed BREAD from ' . $table_name, 'alert-class' => 'success', 'alert-icon' => 'trash-o'));
         }
 
-        return redirect('/admin/users')->with(array('message' => 'Sorry it appears there was a problem deleting this user', 'alert-class' => 'danger', 'alert-icon' => 'exclamation-triangle'));
+        return redirect('/admin/builder')->with(array('message' => 'Sorry it appears there was a problem removing this bread', 'alert-class' => 'danger', 'alert-icon' => 'exclamation-triangle'));
 
     }
 }
