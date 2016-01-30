@@ -14,5 +14,5 @@
         "psr-4": {
             "TCG\\Voyager\\": "voyager/src"
         }
-    },
+    }
 }
