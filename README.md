@@ -42,13 +42,22 @@ Then, we'll need to publish our voyager files to be loaded into your app
 php artisan vendor:publish
 ```
 
-Finally, lets run the migrations
+Finally, lets run our migrations
 
 ```
 php artisan migrate
 ```
 
-And then run the database seed data
+And before we run the database seed, we must first add the following to our *database/seeds/DatabaseSeeder.php* inside of the `public function run()`:
+
+```
+$this->call('DataTypesTableSeeder');
+$this->call('DataRowsTableSeeder');
+$this->call('UsersTableSeeder');
+$this->call('PostsTableSeeder');
+```
+
+Now, let's run our database seeds:
 
 ```
 php artisan db:seed --class=VoyagerDatabaseSeeder
