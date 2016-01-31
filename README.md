@@ -4,57 +4,36 @@
 
 Glad you asked. It's the same concept as CRUD which stands for **Create**, **Read**, **Update**, and **Delete**. 
 
-BREAD stands for **Browse**, **Read**, **Edit**, **Add**, & **Delete**. It sounds much nicer too, right? It's much better to have a bunch of BREAD, than a bunch of CRUD. Documentation coming soon...
+BREAD stands for **Browse**, **Read**, **Edit**, **Add**, & **Delete**. It sounds much nicer too, right? It's much better to have a bunch of BREAD, than a bunch of CRUD.
 
 ![Screenshot of Voyager](https://raw.githubusercontent.com/the-control-group/voyager/master/src/assets/images/screenshot.png)
 
-Voyager will be released as a Package in the Packagist directory when it has been completed, but for the meantime to preview the current state you can follow these steps:
-
-Create Your New Laravel App (must have the Laravel installer)
-```
-laravel new application
-```
-
-Change Directory into your current application
-```
-cd application
-```
-
-Clone the Repo
-```
-git clone https://github.com/the-control-group/voyager.git
-```
-
-Open up your composer.json and load the package in the PSR-4 autoload value, so it looks like the following:
+After creating your new Laravel application you can include the Voyager package with the folowing command: 
 
 ```
-"autoload": {
-    "classmap": [
-        "database"
-    ],
-    "psr-4": {
-        "App\\": "app/",
-        "TCG\\Voyager\\": "voyager/src"
-    }
-},
+composer require tcg/voyager
 ```
 
-Then run composer command to dump the current autoloaded files:
+Next make sure to create a new database and add your database credentials to your .env file:
 
 ```
-composer dump-autoload
+DB_HOST=localhost
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
 ```
 
-Next, create a new database and add the database credentials to your .env file of your laravel app. We'll also start off by running the default Laravel authentication scaffolding by running:
+Add the Voyager service provider as well as the Image Intervention service provider to the config/app.php file in the `'providers' => [` array:
+
+```
+    TCG\Voyager\VoyagerServiceProvider::class,
+    Intervention\Image\ImageServiceProvider::class,
+```
+
+Optionally if you wish to have the front-end authentication scaffolding provided by laravel you can run:
 
 ```
 php artisan make:auth
-```
-
-Then we need to add our service provider. Add the following inside of config/app.php inside of the providers array:
-
-```
-TCG\Voyager\VoyagerServiceProvider::class
 ```
 
 Then, we'll need to publish our voyager files to be loaded into your app
@@ -63,28 +42,21 @@ Then, we'll need to publish our voyager files to be loaded into your app
 php artisan vendor:publish
 ```
 
-Finally, lets run the migrations and the seeds
+Finally, lets run the migrations
 
 ```
 php artisan migrate
-php artisan db:seed
 ```
 
-If seeds do not run, you may need to add the following inside of the run function inside of database/seeds/DatabaseSeeder.php
+And then run the database seed data
 
 ```
-$this->call('DataTypesTableSeeder');
-$this->call('DataRowsTableSeeder');
-$this->call('UsersTableSeeder');
+php artisan db:seed --class=VoyagerDatabaseSeeder
 ```
 
-Start up a local development server:
+And we're all good to go! 
 
-```
-php artisan serve
-```
-
-And, visit http://localhost:8000/admin and you can login with the following login credentials:
+Start up a local development server with `php artisan serve` And, visit http://localhost:8000/admin and you can login with the following login credentials:
 
 ```
 **email:** admin@admin.com
