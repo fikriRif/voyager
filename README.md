@@ -6,7 +6,7 @@ Glad you asked. It's the same concept as CRUD which stands for **Create**, **Rea
 
 BREAD stands for **Browse**, **Read**, **Edit**, **Add**, & **Delete**. It sounds much nicer too, right? It's much better to have a bunch of BREAD, than a bunch of CRUD.
 
-![Screenshot of Voyager](https://raw.githubusercontent.com/the-control-group/voyager/master/src/assets/images/screenshot.png)
+![Screenshot of Voyager](https://raw.githubusercontent.com/the-control-group/voyager/master/src/TCG/Voyager/assets/images/screenshot.png)
 
 After creating your new Laravel application you can include the Voyager package with the folowing command: 
 
