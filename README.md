@@ -48,13 +48,10 @@ Finally, lets run our migrations
 php artisan migrate
 ```
 
-And before we run the database seed, we must first add the following to our *database/seeds/DatabaseSeeder.php* inside of the `public function run()`:
+And before we run the database seed, we need to run the following command:
 
 ```
-$this->call('DataTypesTableSeeder');
-$this->call('DataRowsTableSeeder');
-$this->call('UsersTableSeeder');
-$this->call('PostsTableSeeder');
+composer dump-autoload
 ```
 
 Now, let's run our database seeds:
